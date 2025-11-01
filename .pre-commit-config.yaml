@@ -1,0 +1,50 @@
+# Pre-commit hooks configuration
+# Este archivo configura hooks que se ejecutan antes de cada commit
+# para asegurar la calidad del código
+
+# Ver https://pre-commit.com para más información
+# Ver https://pre-commit.com/hooks.html para más hooks disponibles
+
+repos:
+  # Hooks generales de pre-commit
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # Previene commits a la rama main directamente (comentado para ejercicio)
+      # - id: no-commit-to-branch
+      #   args: ['--branch', 'main', '--branch', 'master']
+
+      # Verifica que los archivos YAML sean válidos
+      - id: check-yaml
+
+      # Verifica que los archivos JSON sean válidos
+      - id: check-json
+
+      # Verifica que no haya archivos grandes (>500KB)
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+
+      # Asegura que los archivos terminen con una nueva línea
+      - id: end-of-file-fixer
+
+      # Elimina espacios en blanco al final de las líneas
+      - id: trailing-whitespace
+
+      # Verifica sintaxis de archivos Python
+      - id: check-ast
+
+      # Previene commits de archivos de merge conflict
+      - id: check-merge-conflict
+
+  # Hook local personalizado para ejecutar pytest
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest-check
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
+        verbose: true
+        args: ['-v', '--tb=short']
+        description: 'Ejecuta pytest para verificar que todos los tests pasen antes del commit'
