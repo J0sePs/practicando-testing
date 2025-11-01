@@ -89,3 +89,22 @@ def test_get_exchange_rate_connection_error(monkeypatch):
         calc.get_exchange_rate('GBP')
 
 
+def test_division():
+    """
+    Test the division operation that fails on purpose.
+    
+    Ejercicio 8: Este test falla intencionalmente para demostrar
+    las opciones de debugging de pytest (-v y --showlocals).
+    """
+    # Variables locales para observar con --showlocals
+    numerator = 10
+    denominator = 2
+    expected_result = 4  # Valor incorrecto a propósito
+    
+    # Realizar la división
+    actual_result = numerator / denominator
+    
+    # Esta aserción fallará porque 10 / 2 = 5, no 4
+    assert actual_result == expected_result, \
+        f"Expected {expected_result}, but got {actual_result}"
+
